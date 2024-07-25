@@ -19,6 +19,8 @@ import FlexBetween from "components/FlexBetween";
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
+  carMake:yup.string().required("required"),
+  carModel:yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
   location: yup.string().required("required"),
@@ -34,6 +36,8 @@ const loginSchema = yup.object().shape({
 const initialValuesRegister = {
   firstName: "",
   lastName: "",
+  carMake: "",
+  carModel: "",
   email: "",
   password: "",
   location: "",
@@ -149,6 +153,26 @@ const Form = () => {
                   name="lastName"
                   error={Boolean(touched.lastName) && Boolean(errors.lastName)}
                   helperText={touched.lastName && errors.lastName}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  label="Car Make"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.carMake}
+                  name="carMake"
+                  error={Boolean(touched.carMake) && Boolean(errors.carMake)}
+                  helperText={touched.carMake && errors.carMake}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  label="Car Model"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.carModel}
+                  name="carModel"
+                  error={Boolean(touched.carModel) && Boolean(errors.carModel)}
+                  helperText={touched.carModel && errors.carModel}
                   sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
