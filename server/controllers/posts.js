@@ -1,4 +1,5 @@
 import Post from "../models/Post.js";
+import User from "../models/User.js"
 
 /* CREATE */
 export const createPost = async (req,res) => {
@@ -50,7 +51,7 @@ export const getUserPosts = async (req,res) => {
 }
 
 /* UPDATE */
-export const likePosts = async (req,res) => {
+export const likePost = async (req,res) => {
     try {
         const { id } = req.params;
         const { userId } = req.body;

@@ -19,8 +19,8 @@ import FlexBetween from "components/FlexBetween";
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
-  carMake:yup.string().required("required"),
-  carModel:yup.string().required("required"),
+  carMake: yup.string().required("required"),
+  carModel: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
   location: yup.string().required("required"),
@@ -161,7 +161,9 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.carMake}
                   name="carMake"
-                  error={Boolean(touched.carMake) && Boolean(errors.carMake)}
+                  error={
+                    Boolean(touched.carMake) && Boolean(errors.carMake)
+                  }
                   helperText={touched.carMake && errors.carMake}
                   sx={{ gridColumn: "span 2" }}
                 />
@@ -171,7 +173,9 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.carModel}
                   name="carModel"
-                  error={Boolean(touched.carModel) && Boolean(errors.carModel)}
+                  error={
+                    Boolean(touched.carModel) && Boolean(errors.carModel)
+                  }
                   helperText={touched.carModel && errors.carModel}
                   sx={{ gridColumn: "span 2" }}
                 />
