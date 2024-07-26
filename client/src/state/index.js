@@ -1,46 +1,60 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    mode: "light",
-    user: null,
-    token: null,
-    posts: [],
+  user: null,
+  token: null,
+  mode: "light",
+  posts: [],
+  friends: [],
+  garage: [],
+  showroom: [],
 };
 
-export const authSlice = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-        setMode: (state) => {
-            state.mode = state.mode === "light" ? "dark" : "light";
-        },
-        setLogin: (state, action) => {
-            state.user = action.payload.user;
-            state.token = action.payload.token;
-        },
-        setLogOut: (state) => {
-            state.user = null;
-            state.user = null;
-        },
-        setFriends: (state,action) => {
-            if (state.user) {
-                state.user.friends = action.payload.friends;
-            } else {
-                console.error("user friends non-existent :(")
-            }
-        },
-        setPosts: (state, action) => {
-            state.posts = action.payload.posts;
-        },
-        setPost: (state, action) => {
-            const updatedPosts = state.posts.map((post) => {
-                if (post._id === action.payload.post_id) return action.payload.post;
-                return post;
-            });
-            state.posts = updatedPosts;
-        }
-    }
-})
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    setLogin: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+    },
+    setLogout: (state) => {
+      state.user = null;
+      state.token = null;
+    },
+    setMode: (state, action) => {
+      state.mode = action.payload.mode;
+    },
+    setPosts: (state, action) => {
+      state.posts = action.payload.posts;
+    },
+    setPost: (state, action) => {
+      const index = state.posts.findIndex((post) => post._id === action.payload._id);
+      if (index !== -1) {
+        state.posts[index] = action.payload.post;
+      }
+    },
+    setFriends: (state, action) => {
+      state.friends = action.payload.friends;
+    },
+    setGarage: (state, action) => {
+      state.garage = action.payload.garage;
+    },
+    setShowroom: (state, action) => {
+      state.showroom = action.payload.showroom;
+    },
+  },
+});
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost } = authSlice.actions;
+export const {
+  setLogin,
+  setLogout,
+  setMode,
+  setPosts,
+  setPost,
+  setFriends,
+  setGarage,
+  setShowroom,
+} = authSlice.actions;
+
 export default authSlice.reducer;
