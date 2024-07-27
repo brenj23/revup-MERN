@@ -14,14 +14,7 @@ const postSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        carMake: {
-            type: String,
-            required: true,
-        },
-        carModel: {
-            type: String,
-            required: true,
-        },
+        
         location: String,
         description: String,
         picturePath: String,

@@ -20,7 +20,6 @@ const AdvertWidget = () => {
         width="100%"
         height="auto"
         alt="advert"
-        alt-history
         src="http://localhost:3001/assets/speedwayMotorsAd.jpeg
         "
 
