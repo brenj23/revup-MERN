@@ -2,42 +2,44 @@
 export const colorTokens = {
   grey: {
     0: "#FFFFFF",
-    10: "#F5F5F5",
-    50: "#EEEEEE",
+
+    10: "#F6F6F6",
+    50: "#F0F0F0",
     100: "#E0E0E0",
-    200: "#BDBDBD",
-    300: "#9E9E9E",
-    400: "#757575",
-    500: "#616161",
-    600: "#424242",
-    700: "#303030",
-    800: "#212121",
-    900: "#121212",
+    200: "#C2C2C2",
+    300: "#A3A3A3",
+    400: "#858585",
+    500: "#666666",
+    600: "#4D4D4D",
+    700: "#333333",
+    800: "#1A1A1A",
+    900: "#0A0A0A",
     1000: "#000000",
   },
   primary: {
-    50: "#EBF1F5",
-    100: "#D0DBE6",
-    200: "#A2B6CC",
-    300: "#7591B3",
-    400: "#4A6B99",
-    500: "#1F467F", // Darker blue
-    600: "#193A66",
-    700: "#132C4D",
-    800: "#0C1E33",
-    900: "#06101A",
+    50: "#FFE6E6",
+    100: "#FFCCCC",
+    200: "#FF9999",
+    300: "#FF6666",
+    400: "#FF3333",
+    500: "#FF0000",
+    600: "#CC0000",
+    700: "#990000",
+    800: "#660000",
+    900: "#330000",
   },
   secondary: {
-    50: "#F2E9E1",
-    100: "#E6D2C3",
-    200: "#CCAB87",
-    300: "#B3854A",
-    400: "#995F0D",
-    500: "#804A00", // Rich brown
-    600: "#663A00",
-    700: "#4D2B00",
-    800: "#331B00",
-    900: "#1A0C00",
+    50: "#E6E6FF",
+    100: "#CCCCFF",
+    200: "#9999FF",
+    300: "#6666FF",
+    400: "#3333FF",
+    500: "#0000FF",
+    600: "#0000CC",
+    700: "#000099",
+    800: "#000066",
+    900: "#000033",
+
   },
 };
 
@@ -52,12 +54,9 @@ export const themeSettings = (mode) => {
             primary: {
               dark: colorTokens.primary[200],
               main: colorTokens.primary[500],
-              light: colorTokens.primary[700],
-            },
-            secondary: {
-              dark: colorTokens.secondary[200],
-              main: colorTokens.secondary[500],
-              light: colorTokens.secondary[700],
+
+              light: colorTokens.primary[800],
+
             },
             neutral: {
               dark: colorTokens.grey[100],
@@ -76,12 +75,9 @@ export const themeSettings = (mode) => {
             primary: {
               dark: colorTokens.primary[700],
               main: colorTokens.primary[500],
-              light: colorTokens.primary[100],
-            },
-            secondary: {
-              dark: colorTokens.secondary[700],
-              main: colorTokens.secondary[500],
-              light: colorTokens.secondary[100],
+
+              light: colorTokens.primary[50],
+
             },
             neutral: {
               dark: colorTokens.grey[700],

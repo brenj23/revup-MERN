@@ -11,8 +11,9 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
-import showroomRoutes from "./routes/showroom.js";
-import garageRoutes from "./routes/garage.js"; 
+
+import friendRoutes from './routes/friends.js'; 
+
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
@@ -53,8 +54,9 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
-app.use("/showroom", showroomRoutes); // Added
-app.use("/garage", garageRoutes); // Added
+
+app.use('/users', friendRoutes); 
+
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;

@@ -20,7 +20,10 @@ const AdvertWidget = () => {
         width="100%"
         height="auto"
         alt="advert"
-        src="http://localhost:3001/assets/speedwayMotorsAd.jpeg"
+        alt-history
+        src="http://localhost:3001/assets/speedwayMotorsAd.jpeg
+        "
+
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>

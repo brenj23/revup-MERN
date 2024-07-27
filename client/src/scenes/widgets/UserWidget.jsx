@@ -72,7 +72,19 @@ import {
                   },
                 }}
               >
-                {firstName} {lastName} {carMake} {carModel}
+                {firstName} {lastName} 
+              </Typography>
+              <Typography
+                variant="h5"
+                color={dark}
+                sx={{
+                  "&:hover": {
+                    color: palette.primary.light,
+                    cursor: "pointer",
+                  },
+                }}
+              >
+                {carMake} {carModel} 
               </Typography>
               <Typography color={medium}>{friends.length} friends</Typography>
             </Box>
