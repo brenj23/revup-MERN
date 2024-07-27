@@ -64,7 +64,7 @@ export const likePost = async (req,res) => {
             post.likes.set(userId, true);
         }
 
-        const updatePost = await Post.findByIdAndUpdate(
+        const updatedPost = await Post.findByIdAndUpdate(
             id,
             { likes: post.likes },
             { new: true }

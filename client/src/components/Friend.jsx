@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import PropTypes from "prop-types";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -19,40 +20,48 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  const isFriend = friends.find((friend) => friend._id === friendId);
+  const isFriend = friends?.some((friend) => friend._id === friendId);
 
   const patchFriend = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+    try {
+      const method = isFriend ? 'DELETE' : 'PATCH';
+      const response = await fetch(
+        `http://localhost:3001/users/${_id}/${friendId}`,
+        {
+          method,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to update friend status");
       }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+      const data = await response.json();
+      dispatch(setFriends({ friends: data }));
+    } catch (error) {
+      console.error("Error updating friend status:", error);
+    }
+  };
+
+  const handleNavigate = () => {
+    navigate(`/profile/${friendId}`);
+    navigate(0);
   };
 
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">
         <UserImage image={userPicturePath} size="55px" />
-        <Box
-          onClick={() => {
-            navigate(`/profile/${friendId}`);
-            navigate(0);
-          }}
-        >
+        <Box onClick={handleNavigate}>
           <Typography
             color={main}
             variant="h5"
             fontWeight="500"
             sx={{
               "&:hover": {
-                color: palette.primary.light,
+                color: primaryLight,
                 cursor: "pointer",
               },
             }}
@@ -65,7 +74,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         </Box>
       </FlexBetween>
       <IconButton
-        onClick={() => patchFriend()}
+        onClick={patchFriend}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
         {isFriend ? (
@@ -76,6 +85,13 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
       </IconButton>
     </FlexBetween>
   );
+};
+
+Friend.propTypes = {
+  friendId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  userPicturePath: PropTypes.string,
 };
 
 export default Friend;

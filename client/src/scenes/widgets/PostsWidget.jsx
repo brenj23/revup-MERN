@@ -9,24 +9,40 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/posts", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    try {
+      const response = await fetch("http://localhost:3001/posts", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        dispatch(setPosts({ posts: data }));
+      } else {
+        console.error('Fetched data is not an array:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
+    try {
+      const response = await fetch(
+        `http://localhost:3001/posts/${userId}/posts`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        dispatch(setPosts({ posts: data }));
+      } else {
+        console.error('Fetched data is not an array:', data);
       }
-    );
-    const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    } catch (error) {
+      console.error('Error fetching user posts:', error);
+    }
   };
 
   useEffect(() => {
@@ -39,14 +55,12 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   return (
     <>
-      {posts.map(
+      {Array.isArray(posts) && posts.map(
         ({
           _id,
           userId,
           firstName,
           lastName,
-          carMake,
-          carModel,
           description,
           location,
           picturePath,
@@ -59,7 +73,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             postId={_id}
             postUserId={userId}
             name={`${firstName} ${lastName}`}
-            car={`${carMake} ${carModel}`}
             description={description}
             location={location}
             picturePath={picturePath}
