@@ -55,7 +55,8 @@ const Navbar = () => {
               cursor: "pointer",
             },
           }}
-        >
+          >
+          <img src="/assets/revup.jpeg" alt="RevUp" style={{ width: 80, height: 60, marginRight: '0.75rem' }} />
           RevUp
         </Typography>
         {isNonMobileScreens && (
