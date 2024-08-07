@@ -13,6 +13,7 @@ const LoginPage = () => {
         textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
+        <img src="/assets/revup.jpeg" alt="RevUp" style={{ width: 80, height: 60, marginRight: '0.75rem' }} />
           RevUp
         </Typography>
       </Box>
