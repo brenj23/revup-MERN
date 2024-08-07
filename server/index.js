@@ -8,6 +8,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+import { ApolloServer } from 'apollo-server-express';
+import typeDefs from './graphql/schema.js';
+import resolvers from './graphql/resolvers.js';
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
@@ -52,8 +55,16 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
-app.use('/users', friendRoutes); 
+app.use('/users', friendRoutes);
 
+/* GRAPHQL SETUP */
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+await server.start();
+server.applyMiddleware({ app });
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
