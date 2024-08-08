@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   IconButton,
@@ -24,9 +24,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
+import MessageModal from "components/MessageModal";
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -55,7 +57,7 @@ const Navbar = () => {
               cursor: "pointer",
             },
           }}
-          >
+        >
           <img src="/assets/revup.jpeg" alt="RevUp" style={{ width: 80, height: 60, marginRight: '0.75rem' }} />
           RevUp
         </Typography>
@@ -84,7 +86,9 @@ const Navbar = () => {
               <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
           </IconButton>
-          <Message sx={{ fontSize: "25px" }} />
+          <IconButton onClick={() => setIsMessageModalOpen(true)}>
+            <Message sx={{ fontSize: "25px" }} />
+          </IconButton>
           <Notifications sx={{ fontSize: "25px" }} />
           <Help sx={{ fontSize: "25px" }} />
           <FormControl variant="standard" value={fullName}>
@@ -159,7 +163,9 @@ const Navbar = () => {
                 <LightMode sx={{ color: dark, fontSize: "25px" }} />
               )}
             </IconButton>
-            <Message sx={{ fontSize: "25px" }} />
+            <IconButton onClick={() => setIsMessageModalOpen(true)}>
+              <Message sx={{ fontSize: "25px" }} />
+            </IconButton>
             <Notifications sx={{ fontSize: "25px" }} />
             <Help sx={{ fontSize: "25px" }} />
             <FormControl variant="standard" value={fullName}>
@@ -183,14 +189,19 @@ const Navbar = () => {
                 <MenuItem value={fullName}>
                   <Typography>{fullName}</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => dispatch(setLogout())}>
-                  Log Out
-                </MenuItem>
+                <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
               </Select>
-            </FormControl>
+          </FormControl>
           </FlexBetween>
         </Box>
       )}
+
+      {/* MESSAGE MODAL */}
+      <MessageModal
+        isOpen={isMessageModalOpen}
+        handleClose={() => setIsMessageModalOpen(false)}
+        senderId={user._id}
+      />
     </FlexBetween>
   );
 };

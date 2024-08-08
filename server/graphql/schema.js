@@ -1,4 +1,3 @@
-// /Users/brenbroussard/Desktop/revupApp/server/graphql/schema.js
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
@@ -6,7 +5,15 @@ const typeDefs = gql`
     id: ID!
     firstName: String!
     lastName: String!
+    carMake: String!
+    carModel: String!
     email: String!
+    picturePath: String!
+    friends: [String]
+    location: String
+    occupation: String
+    viewedProfile: Int
+    impressions: Int
   }
 
   type Message {
@@ -14,11 +21,12 @@ const typeDefs = gql`
     content: String!
     sender: User!
     recipient: User!
-    createdAt: String!
+    createdAt: String!  # Add the createdAt field here
   }
 
   type Query {
     getMessages(conversationId: ID!): [Message]
+    getUsers: [User]
   }
 
   type Mutation {

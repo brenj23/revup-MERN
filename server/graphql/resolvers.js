@@ -1,39 +1,61 @@
-// /Users/brenbroussard/Desktop/revupApp/server/graphql/resolvers.js
-const users = [
-    { id: '66b1641aebf87c51c8334ede', firstName: 'Steve', lastName: 'Ralph', email: 'thataaa@gmail.com' },
-    { id: '66b1641aebf87c51c8334ee0', firstName: 'Jessica', lastName: 'Bailey', email: 'JessicaBailey@gmail.com' },
-    // Add more users
-  ];
-  
-  const messages = [
-    { id: '1', content: 'Hello Jessica!', senderId: '66b1641aebf87c51c8334ede', recipientId: '66b1641aebf87c51c8334ee0', createdAt: '2024-08-06T12:00:00Z' },
-    // Add more messages
-  ];
-  
-  const resolvers = {
-    Query: {
-      getMessages: (parent, args) => messages.filter(message => 
-        (message.senderId === args.conversationId || message.recipientId === args.conversationId)
-      ),
+import User from '../models/User.js';
+import Message from '../models/Message.js';
+
+const resolvers = {
+  Query: {
+    getMessages: async (parent, { conversationId }) => {
+      return await Message.find({
+        $or: [{ senderId: conversationId }, { recipientId: conversationId }],
+      }).populate('senderId').populate('recipientId');
     },
-    Mutation: {
-      sendMessage: (parent, { senderId, recipientId, content }) => {
-        const newMessage = {
-          id: String(messages.length + 1),
-          content,
-          senderId,
-          recipientId,
-          createdAt: new Date().toISOString(),
-        };
-        messages.push(newMessage);
-        return newMessage;
-      },
+    getUsers: async () => {
+      return await User.find();
     },
-    Message: {
-      sender: (parent) => users.find(user => user.id === parent.senderId),
-      recipient: (parent) => users.find(user => user.id === parent.recipientId),
+  },
+  Mutation: {
+    sendMessage: async (parent, { senderId, recipientId, content }) => {
+      // Validate inputs
+      if (!senderId || !recipientId || !content) {
+        console.error("Validation Error: All fields are required");
+        throw new Error("All fields are required");
+      }
+
+      console.log("Received input parameters:", { senderId, recipientId, content });
+
+      const sender = await User.findById(senderId);
+      const recipient = await User.findById(recipientId);
+
+      if (!sender || !recipient) {
+        console.error("Validation Error: Sender or recipient not found");
+        throw new Error("Sender or recipient not found");
+      }
+
+      const newMessage = new Message({
+        content,
+        senderId,
+        recipientId,
+      });
+
+      await newMessage.save();
+      const populatedMessage = await Message.findById(newMessage._id).populate('senderId').populate('recipientId');
+      console.log("Message successfully saved and populated:", populatedMessage);
+      return populatedMessage;
     },
-  };
-  
-  export default resolvers;
-  
+  },
+  Message: {
+    sender: async (parent) => {
+      if (parent.senderId instanceof User) {
+        return parent.senderId;
+      }
+      return await User.findById(parent.senderId);
+    },
+    recipient: async (parent) => {
+      if (parent.recipientId instanceof User) {
+        return parent.recipientId;
+      }
+      return await User.findById(parent.recipientId);
+    },
+  },
+};
+
+export default resolvers;
