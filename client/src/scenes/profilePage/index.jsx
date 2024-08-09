@@ -7,6 +7,7 @@ import FriendListWidget from "scenes/widgets/FriendListWidget";
 import MyPostWidget from "scenes/widgets/MyPostWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
 import UserWidget from "scenes/widgets/UserWidget";
+import MessageWidget from "scenes/widgets/MessageWidget";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -51,6 +52,10 @@ const ProfilePage = () => {
           <MyPostWidget picturePath={user.picturePath} />
           <Box m="2rem 0" />
           <PostsWidget userId={userId} isProfile />
+        </Box>
+        <Box padding="0rem 0.1%">
+          {/* Other components and content */}
+          <MessageWidget />
         </Box>
       </Box>
     </Box>
