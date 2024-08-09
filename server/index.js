@@ -18,7 +18,7 @@ import friendRoutes from './routes/friends.js';
 import { register } from './controllers/auth.js';
 import { createPost } from './controllers/posts.js';
 import { verifyToken } from './middleware/auth.js';
-
+console.log(process.env.MONGO_URL);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
@@ -62,10 +62,12 @@ const server = new ApolloServer({
 await server.start();
 server.applyMiddleware({ app });
 
+console.log(process.env.MONGO_URL);
+
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 6001;
+const PORT = process.env.PORT || 3001;
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/rev', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
