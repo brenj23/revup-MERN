@@ -14,12 +14,15 @@ const MessageWidget = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading messages</p>;
 
+  const sortedMessages = [...data.getMessages].sort((a,b) =>
+  parseInt(b.createdAt) - parseInt(a.createdAt));
+  
   return (
     <WidgetWrapper>
       <Typography variant="h5" gutterBottom>
         Your Messages
       </Typography>
-      {data.getMessages.map((message) => (
+      {sortedMessages.map((message) => (
         <Box key={message.id} sx={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc' }}>
           <Typography variant="body1">
             <strong>{message.sender.firstName} {message.sender.lastName}:</strong> {message.content}
