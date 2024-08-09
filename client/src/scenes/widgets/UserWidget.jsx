@@ -5,9 +5,9 @@ import {
     WorkOutlineOutlined,
   } from "@mui/icons-material";
   import { Box, Typography, Divider, useTheme } from "@mui/material";
-  import UserImage from "components/UserImage";
-  import FlexBetween from "components/FlexBetween";
-  import WidgetWrapper from "components/WidgetWrapper";
+  import UserImage from "../../components/UserImage";
+  import FlexBetween from "../../components/FlexBetween";
+  import WidgetWrapper from "../../components/WidgetWrapper";
   import { useSelector } from "react-redux";
   import { useEffect, useState } from "react";
   import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ import {
     const main = palette.neutral.main;
   
     const getUser = async () => {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      const response = await fetch(`/users/${userId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
