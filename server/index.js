@@ -53,6 +53,9 @@ app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
 app.use('/users', friendRoutes);
 
+/* Serve static files from the React app */
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 /* GRAPHQL SETUP */
 const server = new ApolloServer({
   typeDefs,
@@ -62,7 +65,14 @@ const server = new ApolloServer({
 await server.start();
 server.applyMiddleware({ app });
 
+
+/* The catch-all handler: serves React's index.html for any request that doesn't match an API route */
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
 console.log(process.env.MONGO_URL);
+
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 3001;
