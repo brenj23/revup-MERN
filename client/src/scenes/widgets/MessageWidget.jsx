@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useQuery } from '@apollo/client';
 import { GET_MESSAGES } from '../../graphql/queries';
 import { Box, Typography } from '@mui/material';
-import WidgetWrapper from 'components/WidgetWrapper';
+import WidgetWrapper from '../../components/WidgetWrapper';
 
 const MessageWidget = () => {
   const user = useSelector((state) => state.user);
