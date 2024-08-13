@@ -77,7 +77,7 @@ console.log(process.env.MONGO_URL);
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 3001;
 mongoose
-  .connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/rev', {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
