@@ -67,7 +67,7 @@ import {
                 fontWeight="500"
                 sx={{
                   "&:hover": {
-                    color: palette.primary.light,
+                    color: palette.primary.dark,
                     cursor: "pointer",
                   },
                 }}
@@ -79,7 +79,7 @@ import {
                 color={dark}
                 sx={{
                   "&:hover": {
-                    color: palette.primary.light,
+                    color: palette.primary.dark,
                     cursor: "pointer",
                   },
                 }}
